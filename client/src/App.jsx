@@ -1,33 +1,60 @@
+import { useState } from 'react';
 import './App.css';
+import TaskColumn from './components/TaskColumn';
 
 function App() {
-  return (
-    <>
-      <h1>New task manager</h1>
-      <div className='all-tasks'>
-        <Task />
-        <Task />
-        <Task />
-      </div>
-    </>
-  );
-}
+  const [todoTasks, setTodoTasks] = useState([
+    'Study React',
+    'Build Project',
+    'Write Documentation',
+  ]);
+  const [inProgressTasks, setInProgressTasks] = useState([
+    'Learning Components',
+    'Styling CSS',
+  ]);
+  const [completedTasks, setCompletedTasks] = useState([
+    'Project Setup',
+    'Initial Commit',
+  ]);
 
-function Task() {
+  const handleDrop = (task, targetColumn) => {
+    // Remove task from its original column
+    setTodoTasks((prev) => prev.filter((t) => t !== task));
+    setInProgressTasks((prev) => prev.filter((t) => t !== task));
+    setCompletedTasks((prev) => prev.filter((t) => t !== task));
+
+    // Add task to the target column
+    switch (targetColumn) {
+      case 'To Do':
+        setTodoTasks((prev) => [...prev, task]);
+        break;
+      case 'In Progress':
+        setInProgressTasks((prev) => [...prev, task]);
+        break;
+      case 'Completed':
+        setCompletedTasks((prev) => [...prev, task]);
+        break;
+    }
+  };
+
   return (
     <>
-      <main className='main-container'>
-        <div className='tasks-title'>Tasks</div>
-        <ul className='list-items'>
-          <li className='list-item'>task</li>
-          <li className='list-item'>task</li>
-          <li className='list-item'>task</li>
-          <li className='list-item'>task</li>
-          <li className='list-item'>task</li>
-          <li className='list-item'>task</li>
-          <li className='list-item'>task</li>
-        </ul>
-      </main>
+      <header>
+        <h1>Task Manager</h1>
+      </header>
+      <div className='all-tasks'>
+        <TaskColumn title='To Do' tasks={todoTasks} onDrop={handleDrop} />
+        <TaskColumn
+          title='In Progress'
+          tasks={inProgressTasks}
+          onDrop={handleDrop}
+        />
+        <TaskColumn
+          title='Completed'
+          tasks={completedTasks}
+          onDrop={handleDrop}
+        />
+      </div>
     </>
   );
 }

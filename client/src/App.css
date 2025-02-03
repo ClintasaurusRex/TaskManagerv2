@@ -3,9 +3,19 @@
   padding: 0;
   box-sizing: border-box;
 }
-#root {
-  max-width: 1500px;
-  margin: 0 auto;
+
+header {
+  padding: 2rem;
+  text-align: center;
+  background-color: #f8f9fa;
+  border-bottom: 1px solid #dee2e6;
+}
+
+.all-tasks {
+  display: flex;
+  justify-content: space-evenly;
+  margin-top: 2rem;
+  padding: 0 2rem;
 }
 
 .main-container {
@@ -13,41 +23,52 @@
   flex-direction: column;
   align-items: flex-start;
   border: 3px solid rgb(17, 134, 56);
-  width: 20%;
-  height: 60vh;
+  width: 300px;
+  min-height: 60vh;
   padding: 20px;
-  margin-left: 40px;
+  border-radius: 8px;
+  transition: border-color 0.2s ease;
+}
 
-  /* background-color: red; */
+.main-container.drag-over {
+  border-color: #007bff;
+  background-color: rgba(0, 123, 255, 0.05);
 }
 
 .tasks-title {
-  /* background-color: red; */
   display: flex;
-  justify-content: center; /* Added to center horizontally */
-  align-items: center; /* Added to center vertically */
+  justify-content: center;
+  align-items: center;
   padding: 10px;
   width: 100%;
-  margin: 0 auto;
-}
-
-.all-tasks {
-  display: flex;
-  justify-content: space-evenly;
-  margin-top: 50px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  border-bottom: 2px solid rgb(17, 134, 56);
 }
 
 .list-items {
   margin-top: 20px;
-  letter-spacing: 2px;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  list-style: circle;
   width: 100%;
-  /* background-color: red; */
+  list-style: none;
 }
 
 .list-item {
-  border: 2px solid red;
+  padding: 10px;
+  margin: 10px 0;
+  background-color: #f8f9fa;
+  border: 1px solid #dee2e6;
+  border-radius: 4px;
+  cursor: move;
+  transition: all 0.2s ease;
+  user-select: none;
+}
+
+.list-item:hover {
+  background-color: #e9ecef;
+  transform: translateY(-2px);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.list-item:active {
+  cursor: grabbing;
 }
