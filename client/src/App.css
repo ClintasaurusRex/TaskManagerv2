@@ -102,3 +102,27 @@ header {
 .add-button:hover {
   background-color: rgb(14, 110, 46);
 }
+.task-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.delete-button {
+  background: none;
+  border: none;
+  font-size: 1rem;
+  cursor: pointer;
+  padding: 0;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.list-item:hover .delete-button {
+  opacity: 1;
+}
+
+.delete-button:hover {
+  transform: scale(1.1);
+}

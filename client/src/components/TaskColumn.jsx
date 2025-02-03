@@ -43,13 +43,15 @@ function TaskColumn({
             draggable
             onDragStart={(e) => handleDragStart(e, task)}
           >
-            <span>{task}</span>
-            <button
-              className='delete-button'
-              onClick={() => handleDelete(task)}
-            >
-              ×
-            </button>
+            <div className='task-content'>
+              <span>{task}</span>
+              <button
+                className='delete-button'
+                onClick={() => handleDelete(task)}
+              >
+                🗑️
+              </button>
+            </div>
           </li>
         ))}
       </ul>
