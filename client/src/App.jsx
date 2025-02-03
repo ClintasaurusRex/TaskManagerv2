@@ -19,9 +19,13 @@ function Task() {
       <main className='main-container'>
         <div className='tasks-title'>Tasks</div>
         <ul className='list-items'>
-          <li>task</li>
-          <li>task</li>
-          <li>task</li>
+          <li className='list-item'>task</li>
+          <li className='list-item'>task</li>
+          <li className='list-item'>task</li>
+          <li className='list-item'>task</li>
+          <li className='list-item'>task</li>
+          <li className='list-item'>task</li>
+          <li className='list-item'>task</li>
         </ul>
       </main>
     </>

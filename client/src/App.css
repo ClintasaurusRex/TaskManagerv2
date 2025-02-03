@@ -12,7 +12,7 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  border: 3px solid red;
+  border: 3px solid rgb(17, 134, 56);
   width: 20%;
   height: 60vh;
   padding: 20px;
@@ -20,14 +20,7 @@
 
   /* background-color: red; */
 }
-.list-items {
-  margin-top: 20px;
-  letter-spacing: 2px;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  background-color: red;
-}
+
 .tasks-title {
   /* background-color: red; */
   display: flex;
@@ -42,4 +35,19 @@
   display: flex;
   justify-content: space-evenly;
   margin-top: 50px;
+}
+
+.list-items {
+  margin-top: 20px;
+  letter-spacing: 2px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  list-style: circle;
+  width: 100%;
+  /* background-color: red; */
+}
+
+.list-item {
+  border: 2px solid red;
 }
