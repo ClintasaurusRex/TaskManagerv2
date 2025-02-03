@@ -23,7 +23,7 @@ function App() {
     setInProgressTasks((prev) => prev.filter((t) => t !== task));
     setCompletedTasks((prev) => prev.filter((t) => t !== task));
 
-    // Add task to the target column
+    // Target Column
     switch (targetColumn) {
       case 'To Do':
         setTodoTasks((prev) => [...prev, task]);

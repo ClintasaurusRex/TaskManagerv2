@@ -5,10 +5,12 @@ function TaskColumn({ title, tasks, onDragStart, onDrop, onDragOver }) {
     e.dataTransfer.setData('task', task);
   };
 
+  // Runs continuously while something is being dragged over the column
   const handleDragOver = (e) => {
     e.preventDefault();
   };
 
+  // Runs when a task is dropped into the column
   const handleDrop = (e) => {
     e.preventDefault();
     const task = e.dataTransfer.getData('task');
