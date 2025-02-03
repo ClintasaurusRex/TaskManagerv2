@@ -1,6 +1,13 @@
 import { useState } from 'react';
 
-function TaskColumn({ title, tasks, onDragStart, onDrop, onDragOver }) {
+function TaskColumn({
+  title,
+  tasks,
+  onDragStart,
+  onDrop,
+  onDragOver,
+  onDelete,
+}) {
   const handleDragStart = (e, task) => {
     e.dataTransfer.setData('task', task);
   };
@@ -15,6 +22,10 @@ function TaskColumn({ title, tasks, onDragStart, onDrop, onDragOver }) {
     e.preventDefault();
     const task = e.dataTransfer.getData('task');
     onDrop(task, title);
+  };
+
+  const handleDelete = (taskToDelete) => {
+    onDelete(taskToDelete, title);
   };
 
   return (
@@ -32,7 +43,13 @@ function TaskColumn({ title, tasks, onDragStart, onDrop, onDragOver }) {
             draggable
             onDragStart={(e) => handleDragStart(e, task)}
           >
-            {task}
+            <span>{task}</span>
+            <button
+              className='delete-button'
+              onClick={() => handleDelete(task)}
+            >
+              ×
+            </button>
           </li>
         ))}
       </ul>

@@ -72,3 +72,33 @@ header {
 .list-item:active {
   cursor: grabbing;
 }
+
+.add-task-form {
+  display: flex;
+  gap: 1rem;
+  padding: 1rem 2rem;
+  background-color: #f8f9fa;
+  border-bottom: 1px solid #dee2e6;
+}
+
+.task-input {
+  flex: 1;
+  padding: 0.5rem;
+  border: 1px solid #dee2e6;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+.add-button {
+  padding: 0.5rem 1rem;
+  background-color: rgb(17, 134, 56);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.add-button:hover {
+  background-color: rgb(14, 110, 46);
+}
