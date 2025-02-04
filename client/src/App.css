@@ -4,11 +4,16 @@
   box-sizing: border-box;
 }
 
+body {
+  background-color: #1a1a1a;
+  color: #e0e0e0;
+}
+
 header {
   padding: 2rem;
   text-align: center;
-  background-color: #f8f9fa;
-  border-bottom: 1px solid #dee2e6;
+  background-color: #2d2d2d;
+  border-bottom: 1px solid #404040;
 }
 
 .all-tasks {
@@ -22,7 +27,8 @@ header {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  border: 3px solid rgb(17, 134, 56);
+  border: 3px solid #404040;
+  background-color: #2d2d2d;
   width: 300px;
   min-height: 60vh;
   padding: 20px;
@@ -31,8 +37,8 @@ header {
 }
 
 .main-container.drag-over {
-  border-color: #007bff;
-  background-color: rgba(0, 123, 255, 0.05);
+  border-color: #4a9eff;
+  background-color: rgba(74, 158, 255, 0.1);
 }
 
 .tasks-title {
@@ -43,7 +49,8 @@ header {
   width: 100%;
   font-size: 1.2rem;
   font-weight: bold;
-  border-bottom: 2px solid rgb(17, 134, 56);
+  color: #e0e0e0;
+  border-bottom: 2px solid #404040;
 }
 
 .list-items {
@@ -55,8 +62,8 @@ header {
 .list-item {
   padding: 10px;
   margin: 10px 0;
-  background-color: #f8f9fa;
-  border: 1px solid #dee2e6;
+  background-color: #363636;
+  border: 1px solid #404040;
   border-radius: 4px;
   cursor: move;
   transition: all 0.2s ease;
@@ -64,44 +71,11 @@ header {
 }
 
 .list-item:hover {
-  background-color: #e9ecef;
+  background-color: #404040;
   transform: translateY(-2px);
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
 
-.list-item:active {
-  cursor: grabbing;
-}
-
-.add-task-form {
-  display: flex;
-  gap: 1rem;
-  padding: 1rem 2rem;
-  background-color: #f8f9fa;
-  border-bottom: 1px solid #dee2e6;
-}
-
-.task-input {
-  flex: 1;
-  padding: 0.5rem;
-  border: 1px solid #dee2e6;
-  border-radius: 4px;
-  font-size: 1rem;
-}
-
-.add-button {
-  padding: 0.5rem 1rem;
-  background-color: rgb(17, 134, 56);
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background-color 0.2s;
-}
-
-.add-button:hover {
-  background-color: rgb(14, 110, 46);
-}
 .task-content {
   display: flex;
   flex-direction: column;
@@ -116,7 +90,7 @@ header {
   cursor: pointer;
   padding: 0;
   opacity: 0;
-  transition: opacity 0.2s;
+  transition: opacity 0.2s, transform 0.2s;
 }
 
 .list-item:hover .delete-button {
@@ -125,4 +99,46 @@ header {
 
 .delete-button:hover {
   transform: scale(1.1);
+}
+
+/* Add Task Form Styles */
+.add-task-form {
+  margin-top: 1rem;
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.task-input {
+  padding: 8px 12px;
+  border: 1px solid #404040;
+  border-radius: 4px;
+  background-color: #363636;
+  color: #e0e0e0;
+  font-size: 1rem;
+  width: 300px;
+}
+
+.task-input:focus {
+  outline: none;
+  border-color: #4a9eff;
+  box-shadow: 0 0 0 2px rgba(74, 158, 255, 0.2);
+}
+
+.add-button {
+  padding: 8px 16px;
+  background-color: #4a9eff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.add-button:hover {
+  background-color: #042c54;
+  transform: scale(100%) rotate(-2deg);
+}
+.list-item:hover {
+  transform: scale(100%) rotate(-2deg);
 }

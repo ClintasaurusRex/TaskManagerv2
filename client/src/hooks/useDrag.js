@@ -1,68 +1,111 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import axios from 'axios';
+
+const API_URL = import.meta.env.VITE_API_URL;
 
 export function useDrag() {
-  const [todoTasks, setTodoTasks] = useState([
-    'Implement User Authentication',
-    'Design Database Schema',
-    'Create API Documentation',
-    'Set Up Unit Tests',
-  ]);
+  const [todoTasks, setTodoTasks] = useState([]);
+  const [inProgressTasks, setInProgressTasks] = useState([]);
+  const [completedTasks, setCompletedTasks] = useState([]);
 
-  const [inProgressTasks, setInProgressTasks] = useState([
-    'Develop REST API Endpoints',
-    'Style Dashboard Components',
-    'Integrate Payment Gateway',
-  ]);
-
-  const [completedTasks, setCompletedTasks] = useState([
-    'Project Setup and Configuration',
-    'Create Component Structure',
-    'Initialize Git Repository',
-  ]);
+  // Fetch initial tasks
+  useEffect(() => {
+    const fetchTasks = async () => {
+      try {
+        const response = await axios.get(`${API_URL}/tasks`);
+        const { todoTasks, inProgressTasks, completedTasks } = response.data;
+        setTodoTasks(todoTasks);
+        setInProgressTasks(inProgressTasks);
+        setCompletedTasks(completedTasks);
+      } catch (error) {
+        console.error('Error fetching tasks:', error);
+      }
+    };
+    fetchTasks();
+  }, []);
 
   const handleDragOver = (e) => {
     e.preventDefault();
   };
 
-  const handleDrop = (task, targetColumn) => {
-    // Remove task from its original column
-    // Checks each task t in the array
-    // Only keeps tasks that are NOT equal to the dragged task
+  const handleDrop = async (task, targetColumn) => {
+    try {
+      // Find which column the task is coming from
+      let fromColumn;
+      if (todoTasks.includes(task)) fromColumn = 'todoTasks';
+      else if (inProgressTasks.includes(task)) fromColumn = 'inProgressTasks';
+      else fromColumn = 'completedTasks';
 
-    setTodoTasks((prev) => prev.filter((t) => t !== task));
-    setInProgressTasks((prev) => prev.filter((t) => t !== task));
-    setCompletedTasks((prev) => prev.filter((t) => t !== task));
+      const toColumn =
+        targetColumn === 'To Do'
+          ? 'todoTasks'
+          : targetColumn === 'In Progress'
+          ? 'inProgressTasks'
+          : 'completedTasks';
 
-    // Target Column
-    switch (targetColumn) {
-      case 'To Do':
-        setTodoTasks((prev) => [...prev, task]);
-        break;
-      case 'In Progress':
-        setInProgressTasks((prev) => [...prev, task]);
-        break;
-      case 'Completed':
-        setCompletedTasks((prev) => [...prev, task]);
-        break;
+      const response = await axios.put(`${API_URL}/tasks/move`, {
+        task,
+        fromColumn,
+        toColumn,
+      });
+
+      const {
+        todoTasks: newTodo,
+        inProgressTasks: newProgress,
+        completedTasks: newCompleted,
+      } = response.data;
+      setTodoTasks(newTodo);
+      setInProgressTasks(newProgress);
+      setCompletedTasks(newCompleted);
+    } catch (error) {
+      console.error('Error moving task:', error);
     }
   };
 
-  const handleDelete = (task, columnTitle) => {
-    switch (columnTitle) {
-      case 'To Do':
-        setTodoTasks((prev) => prev.filter((t) => t !== task));
-        break;
-      case 'In Progress':
-        setInProgressTasks((prev) => prev.filter((t) => t !== task));
-        break;
-      case 'Completed':
-        setCompletedTasks((prev) => prev.filter((t) => t !== task));
-        break;
+  const handleDelete = async (task, columnTitle) => {
+    try {
+      const column =
+        columnTitle === 'To Do'
+          ? 'todoTasks'
+          : columnTitle === 'In Progress'
+          ? 'inProgressTasks'
+          : 'completedTasks';
+
+      const response = await axios.delete(`${API_URL}/tasks`, {
+        params: { task, column },
+      });
+
+      const {
+        todoTasks: newTodo,
+        inProgressTasks: newProgress,
+        completedTasks: newCompleted,
+      } = response.data;
+      setTodoTasks(newTodo);
+      setInProgressTasks(newProgress);
+      setCompletedTasks(newCompleted);
+    } catch (error) {
+      console.error('Error deleting task:', error);
     }
   };
 
-  const handleAddTask = (newTask) => {
-    setTodoTasks((prev) => [...prev, newTask]);
+  const handleAddTask = async (newTask) => {
+    try {
+      const response = await axios.post(`${API_URL}/tasks`, {
+        task: newTask,
+        column: 'todoTasks',
+      });
+
+      const {
+        todoTasks: newTodo,
+        inProgressTasks: newProgress,
+        completedTasks: newCompleted,
+      } = response.data;
+      setTodoTasks(newTodo);
+      setInProgressTasks(newProgress);
+      setCompletedTasks(newCompleted);
+    } catch (error) {
+      console.error('Error adding task:', error);
+    }
   };
 
   return {
